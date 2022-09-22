@@ -4,7 +4,7 @@
     <key>package_description</key>
     <map>
       <key>canonical_repo</key>
-      <string>https://bitbucket.org/lindenlab/3p-jpeglib</string>
+      <string>https://github.com/secondlife/3p-jpeglib</string>
       <key>copyright</key>
       <string>Copyright (C) 1991-2011, Thomas G. Lane, Guido Vollbeding.</string>
       <key>description</key>
