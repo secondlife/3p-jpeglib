@@ -44,6 +44,12 @@ pushd "$JPEGLIB_SOURCE_DIR"
                 "150")
                     target="setup-v15"
                     ;;
+                "160")
+                    target="setup-v16"
+                    ;;
+                "170")
+                    target="setup-v17"
+                    ;;
                 *)
                     echo "Unrecognized AUTOBUILD_VSVER = '${AUTOBUILD_VSVER:-}'" 1>&2 ; exit 1
                     ;;
