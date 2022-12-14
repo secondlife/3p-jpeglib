@@ -206,6 +206,23 @@ setup-v15:
 	ren makewvcx.v15 wrjpgcom.vcxproj
 	ren makewfil.v15 wrjpgcom.vcxproj.filters
 
+setup-v17:
+	ren jconfig.vc jconfig.h
+	ren makejsln.v17 jpeg.sln
+	ren makeasln.v17 apps.sln
+	ren makejvcx.v17 jpeg.vcxproj
+	ren makejfil.v17 jpeg.vcxproj.filters
+	ren makecvcx.v17 cjpeg.vcxproj
+	ren makecfil.v17 cjpeg.vcxproj.filters
+	ren makedvcx.v17 djpeg.vcxproj
+	ren makedfil.v17 djpeg.vcxproj.filters
+	ren maketvcx.v17 jpegtran.vcxproj
+	ren maketfil.v17 jpegtran.vcxproj.filters
+	ren makervcx.v17 rdjpgcom.vcxproj
+	ren makerfil.v17 rdjpgcom.vcxproj.filters
+	ren makewvcx.v17 wrjpgcom.vcxproj
+	ren makewfil.v17 wrjpgcom.vcxproj.filters
+
 test:
 	IF EXIST testout* $(RM) testout*
 	.\djpeg -dct int -ppm -outfile testout.ppm  testorig.jpg
