@@ -57,7 +57,11 @@ pushd "$JPEGLIB_SOURCE_DIR"
 
             nmake -f makefile.vc "$target"
 
-            build_sln "jpeg.sln" "Release|$AUTOBUILD_WIN_VSPLATFORM" "jpeg"
+            msbuild.exe \
+                -t:jpeg \
+                -p:Configuration=Release \
+                -p:Platform=$AUTOBUILD_WIN_VSPLATFORM \
+                -p:PlatformToolset=v143
 
             mkdir -p "$stage/lib/release"
 
