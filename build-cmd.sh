@@ -61,7 +61,8 @@ pushd "$JPEGLIB_SOURCE_DIR"
                 -t:jpeg \
                 -p:Configuration=Release \
                 -p:Platform=$AUTOBUILD_WIN_VSPLATFORM \
-                -p:PlatformToolset=v143
+                -p:PlatformToolset=v143 \
+                jpeg.sln
 
             mkdir -p "$stage/lib/release"
 
