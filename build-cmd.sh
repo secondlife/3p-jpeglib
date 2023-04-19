@@ -81,7 +81,7 @@ pushd "$JPEGLIB_SOURCE_DIR"
             opts="-arch $AUTOBUILD_CONFIGURE_ARCH $LL_BUILD_RELEASE"
             plainopts="$(remove_cxxstd $opts)"
             export CFLAGS="$plainopts" 
-            export CPPFLAGS="$opts" 
+            export CXXFLAGS="$opts" 
             export LDFLAGS="$plainopts"
             ./configure --prefix="$stage"
             make
