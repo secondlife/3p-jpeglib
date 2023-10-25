@@ -29,6 +29,9 @@ source_environment_tempfile="$stage/source_environment.sh"
 "$autobuild" source_environment > "$source_environment_tempfile"
 . "$source_environment_tempfile"
 
+# remove_cxxstd
+source "$(dirname "$AUTOBUILD_VARIABLES_FILE")/functions"
+
 build=${AUTOBUILD_BUILD_ID:=0}
 echo "${JPEGLIB_VERSION}.${build}" > "${stage}/VERSION.txt"
 
@@ -44,6 +47,12 @@ pushd "$JPEGLIB_SOURCE_DIR"
                 "150")
                     target="setup-v15"
                     ;;
+                "160")
+                    target="setup-v16"
+                    ;;
+                "170")
+                    target="setup-v17"
+                    ;;
                 *)
                     echo "Unrecognized AUTOBUILD_VSVER = '${AUTOBUILD_VSVER:-}'" 1>&2 ; exit 1
                     ;;
@@ -51,7 +60,12 @@ pushd "$JPEGLIB_SOURCE_DIR"
 
             nmake -f makefile.vc "$target"
 
-            build_sln "jpeg.sln" "Release|$AUTOBUILD_WIN_VSPLATFORM" "jpeg"
+            msbuild.exe \
+                -t:jpeg \
+                -p:Configuration=Release \
+                -p:Platform=$AUTOBUILD_WIN_VSPLATFORM \
+                -p:PlatformToolset=v143 \
+                jpeg.sln
 
             mkdir -p "$stage/lib/release"
 
@@ -65,9 +79,10 @@ pushd "$JPEGLIB_SOURCE_DIR"
         ;;
         darwin*)
             opts="-arch $AUTOBUILD_CONFIGURE_ARCH $LL_BUILD_RELEASE"
-            export CFLAGS="$opts" 
-            export CPPFLAGS="$opts" 
-            export LDFLAGS="$opts"
+            plainopts="$(remove_cxxstd $opts)"
+            export CFLAGS="$plainopts" 
+            export CXXFLAGS="$opts" 
+            export LDFLAGS="$plainopts"
             ./configure --prefix="$stage"
             make
             make install
@@ -79,7 +94,7 @@ pushd "$JPEGLIB_SOURCE_DIR"
         ;;
         linux*)
             opts="-m$AUTOBUILD_ADDRSIZE $LL_BUILD_RELEASE"
-            CFLAGS="$opts" CXXFLAGS="$opts" ./configure --prefix="$stage"
+            CFLAGS="$(remove_cxxstd $opts)" CXXFLAGS="$opts" ./configure --prefix="$stage"
             make
             make install
             mv "$stage/lib" "$stage/release"

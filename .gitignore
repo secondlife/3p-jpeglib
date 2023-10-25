@@ -1,0 +1,14 @@
+syntax: glob
+stage/
+autobuild-parabuild-bootstrap/
+.*.swp
+*.tar.*
+
+
+*.o
+*.pc
+*.lo
+*.la
+Makefile
+*.log
+**/.libs/*
